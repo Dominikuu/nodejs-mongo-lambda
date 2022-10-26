@@ -116,7 +116,7 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-  
+
   createProduct:
     handler: src/product/product.createProduct
     description: Returns a single city.
@@ -183,7 +183,7 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-  
+
   createUser:
     handler: src/user/user.createUser
     description: Returns a single city.
@@ -205,7 +205,7 @@ functions:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetProductResponse
+                  "application/json": GetUserResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
@@ -243,7 +243,7 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-  
+
   listOrders:
     handler: src/order/order.getOrder
     description: Returns a single city.
@@ -343,7 +343,7 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-  
+
 
 custom:
   documentation: ${file(./swagger/documentation.yml)}

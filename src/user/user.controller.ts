@@ -18,33 +18,33 @@ export class UserController {
     })
 
     // Input validation.
-    if (!event.pathParameters || !event.pathParameters.id) {
-      return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);
-    }
+    // if (!event.pathParameters || !event.pathParameters.id) {
+    //   return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);
+    // }
 
-    if (isNaN(+event.pathParameters.id)) {
-      return ResponseBuilder.badRequest(ErrorCode.InvalidId, 'The user ID must be a number!', callback);
-    }
+    // if (isNaN(+event.pathParameters.id)) {
+    //   return ResponseBuilder.badRequest(ErrorCode.InvalidId, 'The user ID must be a number!', callback);
+    // }
 
-    const id: number = +event.pathParameters.id;
-    this._service.getUser(id)
-      .then((result: GetUserResult) => {
-        return ResponseBuilder.ok<GetUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
-      })
-      .catch((error: ErrorResult) => {
-        if (error instanceof NotFoundResult) {
-          return ResponseBuilder.notFound(error.code, error.description, callback);
-        }
+    // const id: number = +event.pathParameters.id;
+    // this._service.getUser(id)
+    //   .then((result: GetUserResult) => {
+    //     return ResponseBuilder.ok<GetUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
+    //   })
+    //   .catch((error: ErrorResult) => {
+    //     if (error instanceof NotFoundResult) {
+    //       return ResponseBuilder.notFound(error.code, error.description, callback);
+    //     }
 
-        if (error instanceof ForbiddenResult) {
-          return ResponseBuilder.forbidden(error.code, error.description, callback);
-        }
+    //     if (error instanceof ForbiddenResult) {
+    //       return ResponseBuilder.forbidden(error.code, error.description, callback);
+    //     }
 
-        return ResponseBuilder.internalServerError(error, callback);
-      });
+    //     return ResponseBuilder.internalServerError(error, callback);
+    //   });
   }
   public createUser: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
-    return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);
+    context.callbackWaitsForEmptyEventLoop = false;
     getConnection().then(()=>{
       console.log('DB CONNECTED')
       return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);
@@ -85,21 +85,21 @@ export class UserController {
       return ResponseBuilder.badRequest(ErrorCode.InvalidId, 'The user ID must be a number!', callback);
     }
 
-    const id: number = +event.pathParameters.id;
-    this._service.getUser(id)
-      .then((result: GetUserResult) => {
-        return ResponseBuilder.ok<GetUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
-      })
-      .catch((error: ErrorResult) => {
-        if (error instanceof NotFoundResult) {
-          return ResponseBuilder.notFound(error.code, error.description, callback);
-        }
+    // const id: number = +event.pathParameters.id;
+    // this._service.getUser(id)
+    //   .then((result: GetUserResult) => {
+    //     return ResponseBuilder.ok<GetUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
+    //   })
+    //   .catch((error: ErrorResult) => {
+    //     if (error instanceof NotFoundResult) {
+    //       return ResponseBuilder.notFound(error.code, error.description, callback);
+    //     }
 
-        if (error instanceof ForbiddenResult) {
-          return ResponseBuilder.forbidden(error.code, error.description, callback);
-        }
+    //     if (error instanceof ForbiddenResult) {
+    //       return ResponseBuilder.forbidden(error.code, error.description, callback);
+    //     }
 
-        return ResponseBuilder.internalServerError(error, callback);
-      });
+    //     return ResponseBuilder.internalServerError(error, callback);
+    //   });
   }
 }
