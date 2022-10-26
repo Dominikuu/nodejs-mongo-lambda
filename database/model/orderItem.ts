@@ -1,4 +1,4 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
 
 export interface IOrderItem extends Document {
   order_id: string;
@@ -15,6 +15,6 @@ const schema: SchemaDefinition = {
 const collectionName: string = "orderItem";
 const orderItemSchema: Schema = new Schema(schema);
 
-const OrderItem = model<IOrderItem>(collectionName, orderItemSchema);
+const OrderItem = models.orderItem || model<IOrderItem>(collectionName, orderItemSchema);
 
 export default OrderItem;

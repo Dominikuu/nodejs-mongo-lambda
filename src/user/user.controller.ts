@@ -2,7 +2,7 @@ import { ApiCallback, ApiContext, ApiEvent, ApiHandler } from '../../shared/api.
 import { ErrorCode } from '../../shared/error-codes';
 import { ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
 import { ResponseBuilder } from '../../shared/response-builder';
-import { GetUserResult, User } from './user.interfaces';
+import { User, CreateUserResult, DeleteUserResult } from './user.interfaces';
 import { UserService } from './user.service';
 
 export class UserController {
@@ -39,7 +39,7 @@ export class UserController {
   public createUser: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
     context.callbackWaitsForEmptyEventLoop = false;
     console.log(event.body)
-    const user: User = event.body
+    const user: User = JSON.parse(event.body as string)
     // Input validation.
     // if (!event.pathParameters || !event.pathParameters.id) {
     //   return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);
@@ -51,8 +51,8 @@ export class UserController {
 
     // const id: number = +event.pathParameters.id;
     this._service.createUser(user)
-      .then((result: GetUserResult) => {
-        return ResponseBuilder.ok<GetUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
+      .then((result: CreateUserResult) => {
+        return ResponseBuilder.ok<CreateUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
       .catch((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
@@ -76,21 +76,21 @@ export class UserController {
       return ResponseBuilder.badRequest(ErrorCode.InvalidId, 'The user ID must be a number!', callback);
     }
 
-    // const id: number = +event.pathParameters.id;
-    // this._service.getUser(id)
-    //   .then((result: GetUserResult) => {
-    //     return ResponseBuilder.ok<GetUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
-    //   })
-    //   .catch((error: ErrorResult) => {
-    //     if (error instanceof NotFoundResult) {
-    //       return ResponseBuilder.notFound(error.code, error.description, callback);
-    //     }
+    const id: string = event.pathParameters.id;
+    this._service.deleteUser(id)
+      .then((result: DeleteUserResult) => {
+        return ResponseBuilder.ok<DeleteUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
+      })
+      .catch((error: ErrorResult) => {
+        if (error instanceof NotFoundResult) {
+          return ResponseBuilder.notFound(error.code, error.description, callback);
+        }
 
-    //     if (error instanceof ForbiddenResult) {
-    //       return ResponseBuilder.forbidden(error.code, error.description, callback);
-    //     }
+        if (error instanceof ForbiddenResult) {
+          return ResponseBuilder.forbidden(error.code, error.description, callback);
+        }
 
-    //     return ResponseBuilder.internalServerError(error, callback);
-    //   });
+        return ResponseBuilder.internalServerError(error, callback);
+      });
   }
 }

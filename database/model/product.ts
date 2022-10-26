@@ -1,4 +1,4 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
 
 export interface IProduct extends Document {
   category: string;
@@ -18,6 +18,6 @@ const schema: SchemaDefinition = {
 const collectionName: string = "product";
 const productSchema: Schema = new Schema(schema);
 
-const Product = model<IProduct>(collectionName, productSchema);
+const Product = models.product || model<IProduct>(collectionName, productSchema);
 
 export default Product;

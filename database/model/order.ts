@@ -1,4 +1,4 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
 
 export enum Payment {
   credit = 'credit',
@@ -32,6 +32,6 @@ const schema: SchemaDefinition = {
 const collectionName: string = "order";
 const orderSchema: Schema = new Schema(schema);
 
-const Order = model<IOrder>(collectionName, orderSchema);
+const Order = models.order || model<IOrder>(collectionName, orderSchema);
 
 export default Order;
