@@ -1,6 +1,6 @@
 export interface User {
   country: string;
-  id: number;
+  id: string;
   name: string;
   populationDensity: number;
 }

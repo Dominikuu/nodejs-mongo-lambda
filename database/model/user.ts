@@ -1,5 +1,5 @@
 // import mongoose from "mongoose";
-import {Document, SchemaDefinition, SchemaTypes, Schema, Connection, Model} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model} from "mongoose";
 
 export enum Gender {
   male = 'male',
@@ -37,7 +37,6 @@ const schema: SchemaDefinition = {
 const collectionName: string = "user";
 const userSchema: Schema = new Schema(schema);
 
-const User = (conn: Connection): Model<IUser> =>
-  conn.model<IUser>(collectionName, userSchema);
+const User = model<IUser>(collectionName, userSchema);
 
 export default User;

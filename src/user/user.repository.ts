@@ -1,15 +1,13 @@
 import { User } from './user.interfaces';
 
 export class UserRepository {
-  /* istanbul ignore next Demo implementation. */
-  // tslint:disable-next-line prefer-function-over-method (Demo implementation.)
-  public exists(id: number): boolean {
-    return id > 0;
+
+  public exists(id: string): boolean {
+    return id? true: false;
   }
 
-  /* istanbul ignore next Demo implementation. */
-  // tslint:disable-next-line prefer-function-over-method (Demo implementation.)
-  public getUser(id: number, defaultCountry: string): User {
+
+  public getUser(id: string, defaultCountry: string): User {
     return {
       country: defaultCountry,
       id,
@@ -18,9 +16,7 @@ export class UserRepository {
     };
   }
 
-  /* istanbul ignore next Demo implementation. */
-  // tslint:disable-next-line prefer-function-over-method (Demo implementation.)
-  public hasAccess(id: number): boolean {
-    return id !== 666;   // tslint:disable-line no-magic-numbers (Demo number.)
+  public hasAccess(id: string): boolean {
+    return id === '666';   // tslint:disable-line no-magic-numbers (Demo number.)
   }
 }
