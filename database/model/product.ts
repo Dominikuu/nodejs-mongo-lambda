@@ -8,7 +8,7 @@ export interface IProduct extends Document {
 }
 
 const schema: SchemaDefinition = {
-  category: { type: SchemaTypes.String, required: true, unique: true },
+  category: { type: SchemaTypes.String, required: true },
   name: { type: SchemaTypes.String, required: true },
   description: { type: SchemaTypes.String, required: true },
   price: { type: SchemaTypes.Number, required: true },

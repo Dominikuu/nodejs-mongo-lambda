@@ -21,7 +21,7 @@ export interface IOrder extends Document {
 }
 
 const schema: SchemaDefinition = {
-  user_id: { type: SchemaTypes.ObjectId, required: true, unique: true },
+  user_id: { type: SchemaTypes.ObjectId, required: true},
   timestamp: { type: SchemaTypes.Date, default: Date.now},
   total: { type: SchemaTypes.Number, required: true },
   payment: { type: SchemaTypes.String, enum: Object.values(Payment) },

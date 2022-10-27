@@ -25,5 +25,5 @@ export interface CreateUserResult {
   id: string;
 }
 export interface DeleteUserResult {
-  id: string;
+  message: string;
 }

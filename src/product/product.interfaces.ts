@@ -1,10 +1,15 @@
 export interface Product {
-  country: string;
-  id: number;
+  category: string;
   name: string;
-  populationDensity: number;
+  description: string;
+  price: number;
 }
-
 export interface GetProductResult {
   product: Product;
+}
+export interface CreateProductResult {
+  id: string;
+}
+export interface DeleteProductResult {
+  message: string;
 }

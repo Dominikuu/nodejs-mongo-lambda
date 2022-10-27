@@ -4,7 +4,5 @@ import { UserService } from './user.service';
 
 const service: UserService = new UserService(process.env);
 const controller: UserController = new UserController(service);
-
-export const getUser: ApiHandler = controller.getUser;
 export const deleteUser: ApiHandler = controller.deleteUser;
 export const createUser: ApiHandler = controller.createUser;

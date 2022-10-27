@@ -4,13 +4,13 @@ dotenv.config();
 
 const uri: string = process.env.MONGO_URI as string;
 
-import { connect } from 'mongoose';
-import { ConnectionOptions } from "tls";
+import { connect, ConnectOptions} from 'mongoose';
+
 
 
 export function connectDB() {
 
-  connect(uri, {useNewUrlParser: true} as ConnectionOptions)
+  connect(uri, {useNewUrlParser: true} as ConnectOptions)
       .then(() => {
           console.info(`Connected to database...`);
       })

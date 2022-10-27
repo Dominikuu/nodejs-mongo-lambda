@@ -16,11 +16,14 @@
     "suppressImplicitAnyIndexErrors": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true,
-
+    "skipLibCheck": true
   },
 
   "exclude": ["node_modules", "coverage", "./node_modules",
   "./node_modules/*",
-  "./node_modules/@types/node/index.d.ts",]
+  "./node_modules/@types/node/index.d.ts",
+  "./node_modules/@types/whatwg-url/index.d.ts",
+  "./node_modules/mongodb/mongodb.d.ts",
+  "./node_modules/mongoose/types/query.d.ts"
+]
 }

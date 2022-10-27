@@ -1,30 +1,45 @@
-import { ForbiddenResult, NotFoundResult } from '../../shared/errors';
-import { Product, GetProductResult } from './product.interfaces';
-import { ProductRepository } from './product.repository';
-
+import { NotFoundResult, ConfigurationErrorResult } from '../../shared/errors';
+import { Product, CreateProductResult, DeleteProductResult } from './product.interfaces';
+import {connectDB} from '../../database'
+import ProductModel from '../../database/model/product'
 export class ProductService {
-  public constructor(private readonly _repo: ProductRepository, private readonly _env: NodeJS.ProcessEnv) {
+  public constructor(private readonly _env: NodeJS.ProcessEnv) {
+    connectDB()
   }
 
-  public getProduct(id: number): Promise<GetProductResult> {
-    return new Promise((resolve: (result: GetProductResult) => void, reject: (reason: NotFoundResult) => void): void => {
-      if (!this._repo.exists(id)) {
-          reject(new NotFoundResult('UNKNOWN_CITY', 'There is no product with the specified ID!'));
-          return;
+  public createProduct(product: Product): Promise<CreateProductResult> {
+
+    return new Promise(async(resolve: (result: CreateProductResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
+      try {
+
+        console.log(product)
+        const {id} = await ProductModel.create(new ProductModel(product))
+        const result: CreateProductResult = {
+          id
+        };
+        console.log(id)
+        resolve(result);
+      } catch(errors) {
+        console.log(errors)
+        reject(new ConfigurationErrorResult('CREATE_DENINED', 'You have no permission to access the city with the specified ID!'));
       }
-
-      if (!this._repo.hasAccess(id)) {
-        reject(new ForbiddenResult('PERMISSION_REQUIRED', 'You have no permission to access the product with the specified ID!'));
-        return;
-      }
-
-      const defaultCountry: string = this._env.DEFAULT_COUNTRY || 'Hungary';
-      const product: Product = this._repo.getProduct(id, defaultCountry);
-      const result: GetProductResult = {
-        product
-      };
-
-      resolve(result);
     });
   }
+  public deleteProduct(id: string): Promise<DeleteProductResult> {
+    return new Promise(async(resolve: (result: DeleteProductResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
+      try {
+        const res = await ProductModel.findOneAndDelete({id})
+        console.log(res)
+        const result: DeleteProductResult = {
+          message: "DELETE USER " + id
+        };
+
+        resolve(result);
+      } catch(errors) {
+        console.log(typeof errors)
+        reject(new ConfigurationErrorResult('DELETE_DENIED', errors as string));
+      }
+    });
+  }
+
 }

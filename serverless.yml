@@ -240,9 +240,41 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
+  getOrder:
+    handler: src/order/order.createUser
+    description: Returns a single city.
 
+    environment:
+      DEFAULT_COUNTRY: Hungary
+
+    events:
+      - http:
+          path: order/{id}
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+          documentation:
+            summary: Get a city.
+            tags:
+              - User
+            description: Returns the specified city.
+            pathParams:
+              - name: id
+                description: The unique identifier of the city to retrieve.
+            methodResponses:
+              - statusCode: '200'
+                description: Returned when the operation is completed successfully.
+                responseModels:
+                  "application/json": GetUserResponse
+              - ${file(./swagger/error-responses/bad-request.yml)}
+              - ${file(./swagger/error-responses/forbidden.yml)}
+              - ${file(./swagger/error-responses/not-found.yml)}
+              - ${file(./swagger/error-responses/internal-server-error.yml)}
   listOrders:
-    handler: src/order/order.getOrder
+    handler: src/order/order.listOrders
     description: Returns a single city.
 
     environment:
@@ -253,18 +285,11 @@ functions:
           path: orders
           method: get
           cors: true
-          request:
-            parameters:
-              paths:
-                id: true
           documentation:
             summary: Get a city.
             tags:
               - Orders
             description: Returns the specified city.
-            pathParams:
-              - name: id
-                description: The unique identifier of the city to retrieve.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
@@ -286,18 +311,11 @@ functions:
           path: order
           method: post
           cors: true
-          request:
-            parameters:
-              paths:
-                id: true
           documentation:
             summary: Get a city.
             tags:
               - Order
             description: Returns the specified city.
-            pathParams:
-              - name: id
-                description: The unique identifier of the city to retrieve.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
@@ -307,37 +325,6 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-  deleteOrder:
-    handler: src/order/order.deleteOrder
-    description: Returns a single city.
-
-    events:
-      - http:
-          path: order/{id}
-          method: delete
-          cors: true
-          request:
-            parameters:
-              paths:
-                id: true
-          documentation:
-            summary: Get a city.
-            tags:
-              - Order
-            description: Returns the specified city.
-            pathParams:
-              - name: id
-                description: The unique identifier of the city to retrieve.
-            methodResponses:
-              - statusCode: '200'
-                description: Returned when the operation is completed successfully.
-                responseModels:
-                  "application/json": GetProductResponse
-              - ${file(./swagger/error-responses/bad-request.yml)}
-              - ${file(./swagger/error-responses/forbidden.yml)}
-              - ${file(./swagger/error-responses/not-found.yml)}
-              - ${file(./swagger/error-responses/internal-server-error.yml)}
-
 
 custom:
   documentation: ${file(./swagger/documentation.yml)}
