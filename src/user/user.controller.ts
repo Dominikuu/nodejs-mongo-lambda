@@ -72,10 +72,6 @@ export class UserController {
       return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);
     }
 
-    if (isNaN(+event.pathParameters.id)) {
-      return ResponseBuilder.badRequest(ErrorCode.InvalidId, 'The user ID must be a number!', callback);
-    }
-
     const id: string = event.pathParameters.id;
     this._service.deleteUser(id)
       .then((result: DeleteUserResult) => {

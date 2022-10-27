@@ -159,7 +159,7 @@ functions:
 
     events:
       - http:
-          path: product
+          path: product/{id}
           method: delete
           cors: true
           request:
@@ -214,12 +214,9 @@ functions:
     handler: src/user/user.deleteUser
     description: Returns a single city.
 
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
-          path: user
+          path: user/{id}
           method: delete
           cors: true
           request:
@@ -314,12 +311,9 @@ functions:
     handler: src/order/order.deleteOrder
     description: Returns a single city.
 
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
-          path: order
+          path: order/{id}
           method: delete
           cors: true
           request:
