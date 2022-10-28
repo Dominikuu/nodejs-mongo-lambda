@@ -2,7 +2,7 @@ import { ApiCallback, ApiContext, ApiEvent, ApiHandler } from '../../shared/api.
 import { ErrorCode } from '../../shared/error-codes';
 import { ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
 import { ResponseBuilder } from '../../shared/response-builder';
-import { Product, CreateProductResult, DeleteProductResult } from './product.interfaces';
+import { CreateProductResult, DeleteProductResult, Product } from './product.interfaces';
 import { ProductService } from './product.service';
 
 export class ProductController {
@@ -14,7 +14,7 @@ export class ProductController {
       .then((result: CreateProductResult) => {
         return ResponseBuilder.ok<CreateProductResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }
@@ -37,7 +37,7 @@ export class ProductController {
       .then((result: DeleteProductResult) => {
         return ResponseBuilder.ok<DeleteProductResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }

@@ -1,20 +1,20 @@
 export interface Address {
-  street: string;
   city: string;
+  street: string;
   postCode: string;
 }
 
 export interface User {
+  address?: Address;
   email: string;
   first_name: string;
-  last_name: string;
   gender?: Gender;
-  address?: Address;
+  last_name: string;
 }
 
 export enum Gender {
-  male = 'male',
   female = 'female',
+  male = 'male',
   undisclosed = 'undisclosed'
 }
 

@@ -5,7 +5,7 @@ import { HttpStatusCode } from '../../shared/http-status-codes';
 import { GetSwaggerResult } from '../../src/swagger/swagger.interfaces';
 import { ApiClient } from './api-client';
 
-// tslint:disable no-unused-expression (Generates false alarms for mocha "undefined" function.)
+// tslint:disable no-unused-expression (Generates false alarms for mocha 'undefined' function.)
 
 describe('Swagger', () => {
   let response: rp.FullResponse;

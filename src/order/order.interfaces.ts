@@ -20,7 +20,7 @@ export interface OrderResult {
     email: string;
     first_name: string;
     last_name: string;
-};
+  };
 }
 
 export interface CreateOrderResult {
@@ -34,4 +34,3 @@ export interface GetOrderResult {
 export interface ListOrdersResult {
   orders: OrderResult[];
 }
-

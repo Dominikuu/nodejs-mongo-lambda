@@ -61,7 +61,7 @@ export class SwaggerService {
 
         return result;
       })
-      .catch((error: AWSError | NotFoundResult) => {
+      .catch ((error: AWSError | NotFoundResult) => {
         if (error.code === 'AccessDeniedException') {
           throw new ForbiddenResult(ErrorCode.MissingPermission, error.message);
         }

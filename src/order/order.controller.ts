@@ -13,7 +13,7 @@ export class OrderController {
       .then((result: ListOrdersResult) => {
         return ResponseBuilder.ok<ListOrdersResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }
@@ -36,7 +36,7 @@ export class OrderController {
       .then((result: GetOrderResult) => {
         return ResponseBuilder.ok<GetOrderResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }
@@ -56,7 +56,7 @@ export class OrderController {
       .then((result: CreateOrderResult) => {
         return ResponseBuilder.ok<CreateOrderResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }

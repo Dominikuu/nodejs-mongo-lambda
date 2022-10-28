@@ -6,15 +6,13 @@ const uri: string = process.env.MONGO_URI as string;
 
 import { connect, ConnectOptions} from 'mongoose';
 
-
-
 export function connectDB() {
 
   connect(uri, {useNewUrlParser: true} as ConnectOptions)
       .then(() => {
           console.info(`Connected to database...`);
       })
-      .catch(error => {
+      .catch (error => {
           console.error('failed to connect', error);
       });
 }

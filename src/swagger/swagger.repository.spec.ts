@@ -4,7 +4,7 @@ import { Chance } from 'chance';
 
 import { SwaggerRepository } from './swagger.repository';
 
-// tslint:disable no-unused-expression (Generates false alarms for mocha "undefined" function.)
+// tslint:disable no-unused-expression (Generates false alarms for mocha 'undefined' function.)
 
 const chance: Chance.Chance = new Chance();
 
@@ -70,7 +70,7 @@ describe('SwaggerRepository', () => {
       createRepo(restApis, undefined, error);
 
       await repo.getRestApiId(testData.stageName, testData.restApiName)
-        .catch((err: AWSError) => {
+        .catch ((err: AWSError) => {
           expect(err.message).to.equal(errorMessage);
         });
     });
@@ -90,7 +90,7 @@ describe('SwaggerRepository', () => {
       createRepo([], testData.swaggerDescription, error);
 
       await repo.getSwaggerDescription(testData.restApiId, testData.stageName)
-        .catch((err: AWSError) => {
+        .catch ((err: AWSError) => {
           expect(err.message).to.equal(errorMessage);
         });
     });

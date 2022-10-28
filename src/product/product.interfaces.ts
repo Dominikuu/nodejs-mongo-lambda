@@ -1,7 +1,7 @@
 export interface Product {
   category: string;
-  name: string;
   description: string;
+  name: string;
   price: number;
 }
 export interface GetProductResult {

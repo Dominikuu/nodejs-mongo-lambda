@@ -17,7 +17,7 @@ export class UserController {
       .then((result: CreateUserResult) => {
         return ResponseBuilder.ok<CreateUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }
@@ -40,7 +40,7 @@ export class UserController {
       .then((result: DeleteUserResult) => {
         return ResponseBuilder.ok<DeleteUserResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }

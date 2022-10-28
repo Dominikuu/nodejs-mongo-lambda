@@ -1,9 +1,9 @@
 import { NotFoundResult, ConfigurationErrorResult } from '../../shared/errors';
 import { User, CreateUserResult, DeleteUserResult } from './user.interfaces';
-import {connectDB} from '../../database'
-import UserModel from '../../database/model/user'
+import { connectDB } from '../../database'
+import {User as UserModel} from '../../database/model/user'
 export class UserService {
-  public constructor(private readonly _env: NodeJS.ProcessEnv) {
+  public constructor() {
     connectDB()
   }
 
@@ -11,12 +11,12 @@ export class UserService {
 
     return new Promise(async(resolve: (result: CreateUserResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
-        const {id} = await UserModel.create(new UserModel(user))
+        const {id} = await UserModel.create(new UserModel(user));
         const result: CreateUserResult = {
           id
         };
         resolve(result);
-      } catch(errors) {
+      } catch (errors) {
         reject(new ConfigurationErrorResult('CREATE_DENINED', 'You have no permission to access the city with the specified ID!'));
       }
     });
@@ -24,15 +24,12 @@ export class UserService {
   public deleteUser(id: string): Promise<DeleteUserResult> {
     return new Promise(async(resolve: (result: DeleteUserResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
-        const res = await UserModel.findOneAndDelete({id})
-        console.log(res)
+        await UserModel.findOneAndDelete({id})
         const result: DeleteUserResult = {
-          message: "DELETE USER " + id
+          message: 'DELETE USER ' + id
         };
-
         resolve(result);
-      } catch(errors) {
-        console.log(typeof errors)
+      } catch (errors) {
         reject(new ConfigurationErrorResult('DELETE_DENIED', errors as string));
       }
     });

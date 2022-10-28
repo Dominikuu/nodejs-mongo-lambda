@@ -1,6 +1,6 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from 'mongoose';
 
-export interface IOrderItem extends Document {
+export interface OrderItem extends Document {
   order_id: string;
   product_id: string;
   quantity: number;
@@ -12,9 +12,9 @@ const schema: SchemaDefinition = {
   quantity: { type: SchemaTypes.Number, required: true },
 };
 
-const collectionName: string = "orderItem";
+const collectionName: string = 'orderItem';
 const orderItemSchema: Schema = new Schema(schema);
 
-const OrderItem = models.orderItem || model<IOrderItem>(collectionName, orderItemSchema);
 
-export default OrderItem;
+
+export const OrderItem = models.orderItem || model<OrderItem>(collectionName, orderItemSchema);

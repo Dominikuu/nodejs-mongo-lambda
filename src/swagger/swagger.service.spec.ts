@@ -10,7 +10,7 @@ import { SwaggerRepository } from './swagger.repository';
 import { SwaggerService } from './swagger.service';
 
 // tslint:disable no-unsafe-any (Generates false alarm for ts-mockito functions.)
-// tslint:disable no-unused-expression (Generates false alarms for mocha "undefined" function.)
+// tslint:disable no-unused-expression (Generates false alarms for mocha 'undefined' function.)
 
 const chance: Chance.Chance = new Chance();
 
@@ -101,7 +101,7 @@ describe('SwaggerService', () => {
       process.env.REST_API_NAME = '';
 
       service.getSwaggerDescription()
-        .catch((error: ErrorResult) => {
+        .catch ((error: ErrorResult) => {
           expect(error).instanceof(ConfigurationErrorResult);
           expect(error.code).to.equal(ErrorCode.MissingEnv);
           expect(error.description).to.include('REST_API_NAME');
@@ -112,7 +112,7 @@ describe('SwaggerService', () => {
       process.env.STAGE_NAME = '';
 
       service.getSwaggerDescription()
-        .catch((error: ErrorResult) => {
+        .catch ((error: ErrorResult) => {
           expect(error).instanceof(ConfigurationErrorResult);
           expect(error.code).to.equal(ErrorCode.MissingEnv);
           expect(error.description).to.include('STAGE_NAME');
@@ -123,7 +123,7 @@ describe('SwaggerService', () => {
       process.env.API_INFO_TITLE = '';
 
       service.getSwaggerDescription()
-        .catch((error: ErrorResult) => {
+        .catch ((error: ErrorResult) => {
           expect(error).instanceof(ConfigurationErrorResult);
           expect(error.code).to.equal(ErrorCode.MissingEnv);
           expect(error.description).to.include('API_INFO_TITLE');
@@ -134,7 +134,7 @@ describe('SwaggerService', () => {
       process.env.API_INFO_VERSION = '';
 
       service.getSwaggerDescription()
-        .catch((error: ErrorResult) => {
+        .catch ((error: ErrorResult) => {
           expect(error).instanceof(ConfigurationErrorResult);
           expect(error.code).to.equal(ErrorCode.MissingEnv);
           expect(error.description).to.include('API_INFO_VERSION');
@@ -145,7 +145,7 @@ describe('SwaggerService', () => {
       when(swaggerRepositoryMock.getRestApiId(testData.stageName, testData.restApiName)).thenReturn(Promise.resolve(''));
 
       service.getSwaggerDescription()
-        .catch((error: ErrorResult) => {
+        .catch ((error: ErrorResult) => {
           expect(error).instanceof(NotFoundResult);
           expect(error.code).to.equal(ErrorCode.InvalidName);
         });
@@ -157,7 +157,7 @@ describe('SwaggerService', () => {
       when(swaggerRepositoryMock.getRestApiId(testData.stageName, testData.restApiName)).thenReturn(Promise.reject(awsError));
 
       service.getSwaggerDescription()
-        .catch((error: ErrorResult) => {
+        .catch ((error: ErrorResult) => {
           expect(error).instanceof(ForbiddenResult);
           expect(error.code).to.equal(ErrorCode.MissingPermission);
         });
@@ -167,7 +167,7 @@ describe('SwaggerService', () => {
       when(swaggerRepositoryMock.getRestApiId(testData.stageName, testData.restApiName)).thenReturn(Promise.reject(new Error()));
 
       service.getSwaggerDescription()
-        .catch((error: Error) => {
+        .catch ((error: Error) => {
           expect(error).instanceof(InternalServerErrorResult);
         });
     });
@@ -177,7 +177,7 @@ describe('SwaggerService', () => {
       when(swaggerRepositoryMock.getSwaggerDescription(testData.restApiId, testData.stageName)).thenReturn(Promise.reject(new Error()));
 
       service.getSwaggerDescription()
-        .catch((error: Error) => {
+        .catch ((error: Error) => {
           expect(error).instanceof(InternalServerErrorResult);
         });
     });

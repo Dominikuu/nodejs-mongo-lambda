@@ -1,4 +1,4 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from 'mongoose';
 
 export enum Payment {
   credit = 'credit',
@@ -12,7 +12,7 @@ export enum Delivery {
   motorbike='motorbike'
 }
 
-export interface IOrder extends Document {
+export interface Order extends Document {
   user_id: string;
   payment: Payment;
   timestamp: string;
@@ -29,9 +29,7 @@ const schema: SchemaDefinition = {
 
 };
 
-const collectionName: string = "order";
+const collectionName: string = 'order';
 const orderSchema: Schema = new Schema(schema);
 
-const Order = models.order || model<IOrder>(collectionName, orderSchema);
-
-export default Order;
+export const Order = models.order || model<Order>(collectionName, orderSchema);

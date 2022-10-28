@@ -1,4 +1,4 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
+import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from 'mongoose';
 
 export enum Gender {
   male = 'male',
@@ -7,12 +7,12 @@ export enum Gender {
 }
 
 export interface Address extends Document {
-  street: string;
   city: string;
+  street: string;
   postCode: string;
 }
 
-export interface IUser extends Document {
+export interface User extends Document {
   email: string;
   first_name: string;
   last_name: string;
@@ -33,9 +33,7 @@ const schema: SchemaDefinition = {
   }
 };
 
-const collectionName: string = "user";
+const collectionName: string = 'user';
 const userSchema: Schema = new Schema(schema);
 
-const User = models.user || model<IUser>(collectionName, userSchema);
-
-export default User;
+export const User = models.user || model<User>(collectionName, userSchema);

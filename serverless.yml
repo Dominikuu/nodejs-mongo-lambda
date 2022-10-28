@@ -5,12 +5,13 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: us-east-1
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "apigateway:GET"
-      Resource:
-        - "arn:aws:apigateway:${self:provider.region}::/restapis*"
+  profile: default
+  # iamRoleStatements:
+  #   - Effect: "Allow"
+  #     Action:
+  #       - "apigateway:GET"
+  #     Resource:
+  #       - "arn:aws:apigateway:${self:provider.region}::/restapis*"
 
 plugins:
   - serverless-plugin-typescript
@@ -20,7 +21,7 @@ plugins:
 
 package:
   include:
-    src/**/!(*.spec).js
+    - src/**/!(*.spec).js
   exclude:
     - node_modules/**/*
 
@@ -66,7 +67,6 @@ functions:
   getHealthCheckDetailed:
     handler: src/health/health.getHealthCheckDetailed
     description: Returns the result of a detailed health check of the API.
-
     events:
       - http:
           path: health/detailed
@@ -83,47 +83,10 @@ functions:
                 responseModels:
                   "application/json": GetHealthCheckDetailed
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-  getCity:
-    handler: src/cities/cities.getCity
-    description: Returns a single city.
-
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
-    events:
-      - http:
-          path: cities/{id}
-          method: get
-          cors: true
-          request:
-            parameters:
-              paths:
-                id: true
-          documentation:
-            summary: Get a city.
-            tags:
-              - City
-            description: Returns the specified city.
-            pathParams:
-              - name: id
-                description: The unique identifier of the city to retrieve.
-            methodResponses:
-              - statusCode: '200'
-                description: Returned when the operation is completed successfully.
-                responseModels:
-                  "application/json": GetCityResponse
-              - ${file(./swagger/error-responses/bad-request.yml)}
-              - ${file(./swagger/error-responses/forbidden.yml)}
-              - ${file(./swagger/error-responses/not-found.yml)}
-              - ${file(./swagger/error-responses/internal-server-error.yml)}
 
   createProduct:
     handler: src/product/product.createProduct
     description: Returns a single city.
-
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
           path: product
@@ -153,10 +116,6 @@ functions:
   deleteProduct:
     handler: src/product/product.deleteProduct
     description: Returns a single city.
-
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
           path: product/{id}
@@ -187,10 +146,6 @@ functions:
   createUser:
     handler: src/user/user.createUser
     description: Returns a single city.
-
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
           path: user
@@ -243,10 +198,6 @@ functions:
   getOrder:
     handler: src/order/order.getOrder
     description: Returns a single city.
-
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
           path: order/{id}
@@ -276,10 +227,6 @@ functions:
   listOrders:
     handler: src/order/order.listOrders
     description: Returns a single city.
-
-    environment:
-      DEFAULT_COUNTRY: Hungary
-
     events:
       - http:
           path: orders
@@ -303,8 +250,7 @@ functions:
     handler: src/order/order.createOrder
     description: Returns a single city.
 
-    environment:
-      DEFAULT_COUNTRY: Hungary
+
 
     events:
       - http:

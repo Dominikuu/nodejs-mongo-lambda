@@ -1,6 +1,6 @@
-import {Document, SchemaDefinition, SchemaTypes, Schema, model, models} from "mongoose";
+import { Document, SchemaDefinition, SchemaTypes, Schema, model, models } from 'mongoose';
 
-export interface IProduct extends Document {
+export interface Product extends Document {
   category: string;
   name: string;
   description: string;
@@ -15,9 +15,7 @@ const schema: SchemaDefinition = {
 
 };
 
-const collectionName: string = "product";
+const collectionName: string = 'product';
 const productSchema: Schema = new Schema(schema);
 
-const Product = models.product || model<IProduct>(collectionName, productSchema);
-
-export default Product;
+export const Product = models.product || model<Product>(collectionName, productSchema);

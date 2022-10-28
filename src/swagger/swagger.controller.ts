@@ -13,7 +13,7 @@ export class SwaggerController {
       .then((result: GetSwaggerResult) => {
         return ResponseBuilder.ok<GetSwaggerResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
-      .catch((error: ErrorResult) => {
+      .catch ((error: ErrorResult) => {
         if (error instanceof NotFoundResult) {
           return ResponseBuilder.notFound(error.code, error.description, callback);
         }

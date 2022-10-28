@@ -2,7 +2,7 @@ import { ApiHandler } from '../../shared/api.interfaces';
 import { OrderController } from './order.controller';
 import { OrderService } from './order.service';
 
-const service: OrderService = new OrderService(process.env);
+const service: OrderService = new OrderService();
 const controller: OrderController = new OrderController(service);
 
 export const getOrder: ApiHandler = controller.getOrder;
