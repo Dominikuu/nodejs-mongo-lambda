@@ -11,15 +11,27 @@ export interface Order {
   orderItem: OrderItem[];
 }
 
+export interface OrderResult {
+  payment: Payment;
+  delivery: Delivery;
+  order_items: OrderItem[];
+  user: {
+    user_id: any;
+    email: string;
+    first_name: string;
+    last_name: string;
+};
+}
+
 export interface CreateOrderResult {
   id: string;
 }
 
 export interface GetOrderResult {
-  order: Order;
+  order: OrderResult
 }
 
 export interface ListOrdersResult {
-  orders: Order[];
+  orders: OrderResult[];
 }
 

@@ -7,8 +7,8 @@ export interface IOrderItem extends Document {
 }
 
 const schema: SchemaDefinition = {
-  order_id: { type: SchemaTypes.ObjectId, required: true },
-  product_id: { type: SchemaTypes.ObjectId, required: true },
+  order_id: { type: SchemaTypes.ObjectId, required: true , ref: 'orders'},
+  product_id: { type: SchemaTypes.ObjectId, required: true, ref: 'products'},
   quantity: { type: SchemaTypes.Number, required: true },
 };
 

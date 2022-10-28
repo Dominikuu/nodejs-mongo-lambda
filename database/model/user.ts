@@ -14,16 +14,16 @@ export interface Address extends Document {
 
 export interface IUser extends Document {
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   gender?: Gender;
   address?: Address;
 }
 
 const schema: SchemaDefinition = {
   email: { type: SchemaTypes.String, required: true, unique: true },
-  firstName: { type: SchemaTypes.String, required: true },
-  lastName: { type: SchemaTypes.String, required: true },
+  first_name: { type: SchemaTypes.String, required: true },
+  last_name: { type: SchemaTypes.String, required: true },
   // Gets the Mongoose enum from the TypeScript enum
   gender: { type: SchemaTypes.String, enum: Object.values(Gender) },
   address: {

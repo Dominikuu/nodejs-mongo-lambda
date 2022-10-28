@@ -6,8 +6,8 @@ export interface Address {
 
 export interface User {
   email: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   gender?: Gender;
   address?: Address;
 }

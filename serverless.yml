@@ -241,7 +241,7 @@ functions:
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
   getOrder:
-    handler: src/order/order.createUser
+    handler: src/order/order.getOrder
     description: Returns a single city.
 
     environment:
