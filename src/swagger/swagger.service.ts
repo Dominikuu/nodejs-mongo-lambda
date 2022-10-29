@@ -9,7 +9,6 @@ export class SwaggerService {
   }
 
   public getSwaggerDescription(): Promise<GetSwaggerResult> {
-    console.log(this._env)
     if (!this._env.REST_API_NAME) {
       return Promise.reject(new ConfigurationErrorResult(ErrorCode.MissingEnv, 'The REST_API_NAME environment variable is missing!'));
     }

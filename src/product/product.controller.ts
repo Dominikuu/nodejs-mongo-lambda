@@ -9,6 +9,7 @@ export class ProductController {
   public constructor(private readonly _service: ProductService) {
   }
   public createProduct: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
+    context.callbackWaitsForEmptyEventLoop = false
     const product: Product = JSON.parse(event.body as string)
     this._service.createProduct(product)
       .then((result: CreateProductResult) => {
@@ -27,6 +28,7 @@ export class ProductController {
       });
   }
   public deleteProduct: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
+    context.callbackWaitsForEmptyEventLoop = false
     // Input validation.
     if (!event.pathParameters || !event.pathParameters.id) {
       return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the city ID!', callback);

@@ -15,7 +15,6 @@ export class SwaggerRepository {
         const targetApiName: string = `${stageName}-${apiName}`;
 
         if (data.items && data.items.length > 0) {
-          console.log(data.items)
           const matchingApi: APIGateway.Types.RestApi | undefined = data.items.find((api: APIGateway.Types.RestApi) => api.name === targetApiName);
           resolve(matchingApi ? matchingApi.id : undefined);
         }

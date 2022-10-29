@@ -11,7 +11,6 @@ export class UserController {
 
   public createUser: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
     context.callbackWaitsForEmptyEventLoop = false;
-    console.log(event.body)
     const user: User = JSON.parse(event.body as string)
     this._service.createUser(user)
       .then((result: CreateUserResult) => {
@@ -30,6 +29,7 @@ export class UserController {
       });
   }
   public deleteUser: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
+    context.callbackWaitsForEmptyEventLoop = false
     // Input validation.
     if (!event.pathParameters || !event.pathParameters.id) {
       return ResponseBuilder.badRequest(ErrorCode.MissingId, 'Please specify the user ID!', callback);

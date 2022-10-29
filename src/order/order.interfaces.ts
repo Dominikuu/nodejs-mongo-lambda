@@ -11,10 +11,19 @@ export interface Order {
   orderItem: OrderItem[];
 }
 
+export interface OrderItemResult extends OrderItem{
+  name: string;
+  price: number;
+  category: string;
+}
+
 export interface OrderResult {
   payment: Payment;
   delivery: Delivery;
-  order_items: OrderItem[];
+  order_id: string;
+  timestamp: string;
+  total: number;
+  order_items: OrderItemResult[];
   user: {
     user_id: any;
     email: string;
