@@ -29,7 +29,7 @@ const schema: SchemaDefinition = {
   address: {
     street: { type: SchemaTypes.String },
     city: { type: SchemaTypes.String },
-    postCode: { type: SchemaTypes.String }
+    post_code: { type: SchemaTypes.String }
   }
 };
 
