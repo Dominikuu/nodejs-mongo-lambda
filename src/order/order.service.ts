@@ -38,7 +38,6 @@ export class OrderService {
     });
   }
   public listOrders(): Promise<ListOrdersResult> {
-
     return new Promise(async (resolve: (result: ListOrdersResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
         const orders = await this.fetchOrder()
@@ -47,7 +46,7 @@ export class OrderService {
         };
         resolve(result);
       } catch (errors) {
-        reject(new ConfigurationErrorResult('CREATE_DENINED', 'You have no permission to access the city with the specified ID!'));
+        reject(new ConfigurationErrorResult('LIST_DENINED', 'You have no permission to access the city with the specified ID!'));
       }
     });
   }
@@ -60,7 +59,7 @@ export class OrderService {
         };
         resolve(result);
       } catch (errors) {
-        reject(new ConfigurationErrorResult('CREATE_DENINED', 'You have no permission to access the city with the specified ID!'));
+        reject(new ConfigurationErrorResult('GET_DENINED', 'You have no permission to access the city with the specified ID!'));
       }
     });
   }
@@ -97,17 +96,20 @@ export class OrderService {
       { $unwind: '$user' },
       { $addFields: {user: '$user'}},
     ];
-    const orders = await OrderModel.aggregate(id? [{$match: {_id: new Types.ObjectId(id)}}, ...pipeline]: pipeline);
-    const productIds = new Set();
-    for(const orderItem of orders.map(({order_items}) => order_items)) {
-      productIds.add(orderItem.product_id.toString());
+
+    const orders = await OrderModel.aggregate(id? [{$match: {_id: new Types.ObjectId(id)}}, ...pipeline]: pipeline).exec();
+    // Qurey product info by orderItem.product_id
+    const orderItemIds = new Set();
+    const orderItems = orders.reduce((acc, cur) => acc.concat(cur.order_items), []);
+    for(const orderItem of orderItems) {
+      orderItemIds.add(orderItem.product_id.toString());
     }
-    const product_list = await ProductModel.find({'_id': {$in: Array.from(productIds)}});
+    const product_list = await ProductModel.find({'_id': {$in: Array.from(orderItemIds)}}).exec();
     const productDict = product_list.reduce((acc, {_id, price, name, category}) => {
       acc[_id] = { price, name, category };
       return acc;
     }, {});
-
+    // Restructure result object
     const order = orders.map(({_id, order_items, total, user, payment, timestamp, delivery}) => {
       const _order_items: OrderItem[] = order_items.map(({product_id, quantity}: OrderItem) => {
         const {name, description, price, category} = productDict[product_id];
@@ -116,5 +118,6 @@ export class OrderService {
       return { order_id: _id, total,payment, timestamp, delivery, order_items: _order_items, user: {user_id: user._id, email: user.email, first_name: user.first_name, last_name: user.last_name }};
     });
     return order;
+    
   }
 }

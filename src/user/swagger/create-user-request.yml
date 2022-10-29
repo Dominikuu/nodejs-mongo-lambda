@@ -2,16 +2,34 @@ name: CreateUserRequest
 contentType: "application/json"
 schema:
   type: object
+  required:
+    - email
+    - first_name
+    - last_name
   properties:
     address:
-      type: string
-      description: The parent country of the city.
+      type: object
+      description: The address of the user.
+      properties:
+        city:
+          type: string
+        street:
+          type: string
+        postCode:
+          type: string
     email:
-      type: number
-      description: The unique identifier of the city.
+      type: string
+      description: The email of the user.
     first_name:
       type: string
-      description: The name of the city.
+      description: The first name of the user.
+    last_name:
+      type: string
+      description: The last name of the user.
     gender:
-      type: number
-      description: The population per area.
+      type: string
+      description: The gender of the user.
+      enum:
+      - female
+      - male
+      - undisclosed

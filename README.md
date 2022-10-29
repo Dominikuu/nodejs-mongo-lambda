@@ -28,9 +28,5 @@ npm run deploy
 ### 4. Health check
 ### 5. Deploy
 ```
-serverless deploy
-```
-or
-```
 npm run deploy
 ```

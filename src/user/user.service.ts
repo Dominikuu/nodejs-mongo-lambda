@@ -24,7 +24,7 @@ export class UserService {
   public deleteUser(id: string): Promise<DeleteUserResult> {
     return new Promise(async(resolve: (result: DeleteUserResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
-        await UserModel.findOneAndDelete({id})
+        await UserModel.findOneAndDelete({id}).exec()
         const result: DeleteUserResult = {
           message: 'DELETE USER ' + id
         };

@@ -6,6 +6,7 @@ provider:
   stage: dev
   region: us-east-1
   profile: default
+  lambdaHashingVersion: '20201221'
   # iamRoleStatements:
   #   - Effect: "Allow"
   #     Action:
@@ -22,8 +23,9 @@ plugins:
 package:
   include:
     - src/**/!(*.spec).js
-  exclude:
-    - node_modules/**/*
+    - .env
+  # exclude:
+  #   - node_modules/**/*
 
 functions:
   getSwaggerJson:
@@ -92,10 +94,6 @@ functions:
           path: product
           method: post
           cors: true
-          request:
-            parameters:
-              paths:
-                id: true
           documentation:
             summary: Create new user.
             tags:

@@ -24,7 +24,7 @@ export class ProductService {
   public deleteProduct(id: string): Promise<DeleteProductResult> {
     return new Promise(async (resolve: (result: DeleteProductResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
-        await ProductModel.findOneAndDelete({id})
+        await ProductModel.findOneAndDelete({id}).exec()
         const result: DeleteProductResult = {
           message: 'DELETE PRODUCT ' + id
         };
