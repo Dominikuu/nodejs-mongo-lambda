@@ -3,7 +3,8 @@ import { ConfigurationErrorResult, NotFoundResult } from '../../shared/errors';
 import { connectDB } from '../../database'
 import { Order as OrderModel} from '../../database/model/order'
 import { OrderItem as OrderItemModel} from '../../database/model/orderItem'
-import { Product as ProductModel} from '../../database/model/product'
+import { Product as ProductModel} from '../../database/model/product';
+import { User as UserModel} from '../../database/model/user'
 import { Order, OrderItem, OrderItemResult, CreateOrderResult, ListOrdersResult, GetOrderResult, OrderResult } from './order.interfaces';
 
 export class OrderService {
@@ -12,15 +13,23 @@ export class OrderService {
   }
 
   public createOrder(order: Order): Promise<CreateOrderResult> {
-
     return new Promise(async (resolve: (result: CreateOrderResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
+        // Check user if existed
+        const user = await UserModel.findById(order.user_id).exec()
+        if (!user) {
+          reject(new NotFoundResult('CREATE_DENIED', "Target user isn't existed"));  
+        }
+        // Check user if existed
         const orderItems: OrderItem[] = order.orderItem;
         const products = await ProductModel.find({
           _id: {
             $in: order.orderItem.map((item) => new Types.ObjectId(item.product_id))
           }
         }).exec();
+        if (orderItems.length !== products.length) {
+          reject(new NotFoundResult('CREATE_DENIED', "Target product isn't existed"));  
+        }
         const productMap = {};
         for (const product of products) {
           productMap[product._id] = product.price;

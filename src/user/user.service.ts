@@ -17,14 +17,18 @@ export class UserService {
         };
         resolve(result);
       } catch (errors) {
-        reject(new ConfigurationErrorResult('CREATE_DENINED', 'You have no permission to access the city with the specified ID!'));
+        reject(new ConfigurationErrorResult('CREATE_DENINED', 'You have no permission to access the user with the specified ID!'));
       }
     });
   }
   public deleteUser(id: string): Promise<DeleteUserResult> {
     return new Promise(async(resolve: (result: DeleteUserResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
-        await UserModel.findOneAndDelete({id}).exec()
+        const target = await UserModel.findById(id).exec()
+        if (!target) {
+          reject(new NotFoundResult('DELETE_DENIED', "Target user isn't existed"));  
+        }
+        await UserModel.deleteOne({id}).exec()
         const result: DeleteUserResult = {
           message: 'DELETE USER ' + id
         };

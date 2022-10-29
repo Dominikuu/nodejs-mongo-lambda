@@ -12,7 +12,7 @@ const schema: SchemaDefinition = {
   quantity: { type: SchemaTypes.Number, required: true },
 };
 
-const collectionName: string = 'orderItem';
+const collectionName: string = 'orderItems';
 const orderItemSchema: Schema = new Schema(schema);
 
-export const OrderItem = models.orderItem || model<OrderItem>(collectionName, orderItemSchema);
+export const OrderItem = models.orderItems || model<OrderItem>(collectionName, orderItemSchema);

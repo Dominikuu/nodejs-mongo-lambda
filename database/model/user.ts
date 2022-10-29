@@ -33,7 +33,7 @@ const schema: SchemaDefinition = {
   }
 };
 
-const collectionName: string = 'user';
+const collectionName: string = 'users';
 const userSchema: Schema = new Schema(schema);
 
-export const User = models.user || model<User>(collectionName, userSchema);
+export const User = models.users || model<User>(collectionName, userSchema);

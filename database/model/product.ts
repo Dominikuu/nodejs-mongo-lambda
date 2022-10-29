@@ -15,7 +15,7 @@ const schema: SchemaDefinition = {
 
 };
 
-const collectionName: string = 'product';
+const collectionName: string = 'products';
 const productSchema: Schema = new Schema(schema);
 
 export const Product = models.product || model<Product>(collectionName, productSchema);

@@ -24,12 +24,12 @@ const schema: SchemaDefinition = {
   user_id: { type: SchemaTypes.ObjectId, required: true},
   timestamp: { type: SchemaTypes.Date, default: Date.now},
   total: { type: SchemaTypes.Number, required: true },
-  payment: { type: SchemaTypes.String, enum: Object.values(Payment) },
-  delivery: { type: SchemaTypes.String, enum: Object.values(Delivery) },
+  payment: { type: SchemaTypes.String, enum: Object.values(Payment), required: true },
+  delivery: { type: SchemaTypes.String, enum: Object.values(Delivery), required: true },
 
 };
 
-const collectionName: string = 'order';
+const collectionName: string = 'orders';
 const orderSchema: Schema = new Schema(schema);
 
-export const Order = models.order || model<Order>(collectionName, orderSchema);
+export const Order = models.orders || model<Order>(collectionName, orderSchema);
