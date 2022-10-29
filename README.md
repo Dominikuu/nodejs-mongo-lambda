@@ -23,7 +23,10 @@ Install dependencies
 npm install
 Give the name for service in serverless.yml file
 npm run deploy
-
+### 3. Run server offline
+```
+npm start
+```
 ### 3. Swagger export
 ### 4. Health check
 ### 5. Deploy

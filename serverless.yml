@@ -7,12 +7,12 @@ provider:
   region: us-east-1
   profile: default
   lambdaHashingVersion: '20201221'
-  # iamRoleStatements:
-  #   - Effect: "Allow"
-  #     Action:
-  #       - "apigateway:GET"
-  #     Resource:
-  #       - "arn:aws:apigateway:${self:provider.region}::/restapis*"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "apigateway:GET"
+      Resource:
+        - "arn:aws:apigateway:${self:provider.region}::/restapis*"
 
 plugins:
   - serverless-plugin-typescript
@@ -204,7 +204,7 @@ functions:
           documentation:
             summary: Get a order.
             tags:
-              - User
+              - Order
             description: Returns the specified order.
             pathParams:
               - name: id
