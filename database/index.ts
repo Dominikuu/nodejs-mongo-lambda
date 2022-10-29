@@ -12,7 +12,7 @@ export function connectDB() {
       .then(() => {
           console.info(`Connected to database...`);
       })
-      .catch (error => {
+      .catch ((error) => {
           console.error('failed to connect', error);
       });
 }

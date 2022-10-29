@@ -52,7 +52,7 @@ export class OrderService {
     });
   }
   public getOrder(id: string): Promise<GetOrderResult> {
-    return new Promise(async(resolve: (result: GetOrderResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
+    return new Promise(async (resolve: (result: GetOrderResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
         const orders = await this.fetchOrder(id)
         const result: GetOrderResult = {

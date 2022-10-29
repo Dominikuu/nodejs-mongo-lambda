@@ -86,7 +86,7 @@ functions:
 
   createProduct:
     handler: src/product/product.createProduct
-    description: Returns a single city.
+    description: Create new product.
     events:
       - http:
           path: product
@@ -97,25 +97,22 @@ functions:
               paths:
                 id: true
           documentation:
-            summary: Get a city.
+            summary: Create new user.
             tags:
               - Product
-            description: Returns the specified city.
-            pathParams:
-              - name: id
-                description: The unique identifier of the city to retrieve.
+            description: Create new user.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetProductResponse
+                  "application/json": CreateProductResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
   deleteProduct:
     handler: src/product/product.deleteProduct
-    description: Returns a single city.
+    description: Delete specific product.
     events:
       - http:
           path: product/{id}
@@ -126,18 +123,18 @@ functions:
               paths:
                 id: true
           documentation:
-            summary: Get a city.
+            summary: Delete specific product.
             tags:
               - Product
-            description: Returns the specified city.
+            description: Delete specific product.
             pathParams:
               - name: id
-                description: The unique identifier of the city to retrieve.
+                description: The unique identifier of the product to delete.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetProductResponse
+                  "application/json": DeleteProductResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
@@ -145,30 +142,29 @@ functions:
 
   createUser:
     handler: src/user/user.createUser
-    description: Returns a single city.
+    description: Create new user.
     events:
       - http:
           path: user
           method: post
           cors: true
           documentation:
-            summary: Get a city.
+            summary: Create new user.
             tags:
               - User
-            description: Returns the specified city.
+            description: Create new user..
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetUserResponse
+                  "application/json": CreateUserResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
   deleteUser:
     handler: src/user/user.deleteUser
-    description: Returns a single city.
-
+    description: Delete specific user.
     events:
       - http:
           path: user/{id}
@@ -179,25 +175,25 @@ functions:
               paths:
                 id: true
           documentation:
-            summary: Get a city.
+            summary: Delete specific user.
             tags:
               - User
-            description: Returns the specified city.
+            description: Delete specific user..
             pathParams:
               - name: id
-                description: The unique identifier of the city to retrieve.
+                description: The unique identifier of the user to delete.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetUserResponse
+                  "application/json": DeleteUserResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
   getOrder:
     handler: src/order/order.getOrder
-    description: Returns a single city.
+    description: Returns a single order.
     events:
       - http:
           path: order/{id}
@@ -208,65 +204,62 @@ functions:
               paths:
                 id: true
           documentation:
-            summary: Get a city.
+            summary: Get a order.
             tags:
               - User
-            description: Returns the specified city.
+            description: Returns the specified order.
             pathParams:
               - name: id
-                description: The unique identifier of the city to retrieve.
+                description: The unique identifier of the order to retrieve.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetUserResponse
+                  "application/json": GetOrderResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
   listOrders:
     handler: src/order/order.listOrders
-    description: Returns a single city.
+    description: Returns whole orders.
     events:
       - http:
           path: orders
           method: get
           cors: true
           documentation:
-            summary: Get a city.
+            summary: list all orders
             tags:
               - Orders
-            description: Returns the specified city.
+            description: Returns the whole orders.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetOrderResponse
+                  "application/json": ListOrderResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
   createOrder:
     handler: src/order/order.createOrder
-    description: Returns a single city.
-
-
-
+    description: Create an Order
     events:
       - http:
           path: order
           method: post
           cors: true
           documentation:
-            summary: Get a city.
+            summary: Create an order.
             tags:
               - Order
-            description: Returns the specified city.
+            description: Returns the specified id.
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
                 responseModels:
-                  "application/json": GetOrderResponse
+                  "application/json": CreateOrderResponse
               - ${file(./swagger/error-responses/bad-request.yml)}
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}

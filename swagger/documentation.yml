@@ -8,8 +8,6 @@ api:
     license:
       name: MIT
   tags:
-    - name: City
-      description: Manipulate cities.
     - name: Health
       description: Health check.
     - name: Order

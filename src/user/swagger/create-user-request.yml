@@ -1,0 +1,17 @@
+name: CreateUserRequest
+contentType: "application/json"
+schema:
+  type: object
+  properties:
+    address:
+      type: string
+      description: The parent country of the city.
+    email:
+      type: number
+      description: The unique identifier of the city.
+    first_name:
+      type: string
+      description: The name of the city.
+    gender:
+      type: number
+      description: The population per area.
