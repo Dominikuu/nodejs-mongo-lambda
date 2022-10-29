@@ -1,4 +1,4 @@
-import { ConfigurationErrorResult, NotFoundResult} from '../../shared/errors';
+import { BadRequestResult, ConfigurationErrorResult, NotFoundResult} from '../../shared/errors';
 import { connectDB } from '../../database'
 import { CreateProductResult, DeleteProductResult, Product} from './product.interfaces';
 import {Product as ProductModel} from '../../database/model/product'
@@ -26,7 +26,7 @@ export class ProductService {
       try {
         const target = await ProductModel.findById(id).exec()
         if (!target) {
-          reject(new NotFoundResult('DELETE_DENIED', "Target product isn't existed"));  
+          reject(new BadRequestResult('DELETE_DENIED', "Target product isn't existed"));  
         }
         await ProductModel.deleteOne({id}).exec()
         const result: DeleteProductResult = {

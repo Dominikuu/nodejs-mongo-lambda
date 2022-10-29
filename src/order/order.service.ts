@@ -1,5 +1,5 @@
 import { Types } from 'mongoose'
-import { ConfigurationErrorResult, NotFoundResult } from '../../shared/errors';
+import { ConfigurationErrorResult, NotFoundResult, BadRequestResult } from '../../shared/errors';
 import { connectDB } from '../../database'
 import { Order as OrderModel} from '../../database/model/order'
 import { OrderItem as OrderItemModel} from '../../database/model/orderItem'
@@ -18,7 +18,7 @@ export class OrderService {
         // Check user if existed
         const user = await UserModel.findById(order.user_id).exec()
         if (!user) {
-          reject(new NotFoundResult('CREATE_DENIED', "Target user isn't existed"));  
+          reject(new BadRequestResult('CREATE_DENIED', "Target user isn't existed"));  
         }
         // Check user if existed
         const orderItems: OrderItem[] = order.orderItem;
@@ -28,7 +28,7 @@ export class OrderService {
           }
         }).exec();
         if (orderItems.length !== products.length) {
-          reject(new NotFoundResult('CREATE_DENIED', "Target product isn't existed"));  
+          reject(new BadRequestResult('CREATE_DENIED', "Target product isn't existed"));  
         }
         const productMap = {};
         for (const product of products) {

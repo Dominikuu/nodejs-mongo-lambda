@@ -47,6 +47,7 @@ export class OrderController {
       });
   }
   public createOrder: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
+    context.callbackWaitsForEmptyEventLoop = false
     // Input validation.
     const order: Order = JSON.parse(event.body as string)
 

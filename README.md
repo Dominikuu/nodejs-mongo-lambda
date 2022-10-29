@@ -48,66 +48,65 @@ npm install serverless -g
 
 
 ## Usage
-### 1.Clone repository
-Install dependencies
-```
-npm install
-```
+1. Clone repository
+  Install dependencies
+  ```
+  npm install
+  ```
 
-### 2. Customize the name of your service by changing the following line in the serverless.yml file:
-```
-service: <SERVERLESS-SAMPLE>
-```
+2. Customize the name of your service by changing the following line in the serverless.yml file:
+  ```
+  service: <SERVERLESS-SAMPLE>
+  ```
 
-Give the name for service in serverless.yml file
-```
-npm run deploy
-```
+  Give the name for service in serverless.yml file
+  ```
+  npm run deploy
+  ```
 
-### 3. Test on local
-```
-npm start
-```
-### 4. Swagger export
-Call API get json file and paste the response JSON into the Swagger Editor.
-- https://app.swaggerhub.com/apis-docs/ALANCCL92/simple-shoppingcart_api/1
-![alt text](./img/swaggerhub.png "Title")
+3. Test on local
+  ```
+  npm start
+  ```
+4. Swagger export
+  Call API get json file and paste the response JSON into the Swagger Editor.
+  - https://app.swaggerhub.com/apis-docs/ALANCCL92/simple-shoppingcart_api/1
+  ![alt text](./img/swaggerhub.png "Title")
 
-### 5. Deploy
-It runs the analysers (linter + tests) before deployment, and integration tests after deployment.
+5. Deploy
+  It runs the analysers (linter + tests) before deployment, and integration tests after deployment.
 
-```
-npm run deploy
-```
-![alt text](./img/cloudformation.png "Title")
+  ```
+  npm run deploy
+  ```
+  ![alt text](./img/cloudformation.png "Title")
 
-### 6. Health check
-Health check endpoints - to quickly test your service.
+6. Health check
+  Health check endpoints - to quickly test your service.
 
 ## Test
 - Run linter
-To check your codebase with TSLint, run:
-```
-npm run lint
-```
-The linter automatically checks your code before deployment, so you don't need to run it manually.
+  To check your codebase with TSLint, run:
+  ```
+  npm run lint
+  ```
+  The linter automatically checks your code before deployment, so you don't need to run it manually.
 
 - Run unit tests
-To check your code with unit tests, run:
+  To check your code with unit tests, run:
 
-```
-npm test
-```
-The unit tests are automatically running before deployment, so you don't need to run them manually.
+  ```
+  npm test
+  ```
+  The unit tests are automatically running before deployment, so you don't need to run them manually.
 
 - Run integration tests
-To verify that your deployment completed successfully, run:
-
-```
-npm run test:integration
-```
+  To verify that your deployment completed successfully, run:
+  ```
+  npm run test:integration
+  ```
 - Tese by Postman
-![alt text](./img/postman.png "Title")
+  ![alt text](./img/postman.png "Title")
 
 ## Component
 ### DB/Collection schema
