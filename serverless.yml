@@ -98,7 +98,9 @@ functions:
             summary: Create new user.
             tags:
               - Product
-            description: Create new user.
+            description: Create new Product.
+            requestModels:
+              application/json: CreateProductRequest
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
@@ -151,6 +153,8 @@ functions:
             tags:
               - User
             description: Create new user..
+            requestModels:
+              application/json: CreateUserRequest
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.
@@ -253,6 +257,8 @@ functions:
             tags:
               - Order
             description: Returns the specified id.
+            requestModels:
+              application/json: CreateOrderRequest
             methodResponses:
               - statusCode: '200'
                 description: Returned when the operation is completed successfully.

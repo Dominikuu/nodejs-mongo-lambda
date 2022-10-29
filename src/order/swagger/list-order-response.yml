@@ -1,17 +1,57 @@
 name: ListOrderResponse
 contentType: "application/json"
 schema:
-  type: object
-  properties:
-    country:
-      type: string
-      description: The parent country of the city.
-    id:
-      type: number
-      description: The unique identifier of the city.
-    name:
-      type: string
-      description: The name of the city.
-    populationDensity:
-      type: number
-      description: The population per area.
+  type: array
+  items:
+    items:
+      type: object
+      properties:
+        order_id:
+          type: string
+        user:
+          type: object
+          description: The parent country of the city.
+          properties:
+            first_name:
+              type: string
+              description: The parent country of the city.
+            last_name:
+              type: string
+              description: The parent country of the city.
+            email:
+              type: string
+              description: The parent country of the city.
+        payment:
+          type: string
+          description: The unique identifier of the city.
+          enum:
+            - credit
+            - cash
+        timestamp:
+          type: string
+        total:
+          type: number
+        delivery:
+          type: string
+          description: The name of the city.
+          enum:
+            - freight
+            - air
+            - boat
+            - motorbike
+        orderItem:
+          type: array
+          description: The population per area.
+          items:
+            type: object
+            properties:
+              product_id:
+                type: string
+              quantity:
+                type: number
+              name:
+                type: string
+              price:
+                type: number
+              category:
+                type: string
