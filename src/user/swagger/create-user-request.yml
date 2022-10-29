@@ -33,3 +33,12 @@ schema:
       - female
       - male
       - undisclosed
+example:
+  address: 
+    city: taipei
+    street: St.Hello
+    postCode: 3229-1
+  email: 111@111.com
+  first_name: test
+  last_name: test
+  gender: male

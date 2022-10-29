@@ -19,10 +19,13 @@ api:
 models:
   - ${file(swagger/error-responses/error-response.yml)}
   - ${file(src/product/swagger/create-product-response.yml)}
+  - ${file(src/product/swagger/create-product-request.yml)}
   - ${file(src/product/swagger/delete-product-response.yml)}
   - ${file(src/user/swagger/create-user-response.yml)}
+  - ${file(src/user/swagger/create-user-request.yml)}
   - ${file(src/user/swagger/delete-user-response.yml)}
   - ${file(src/order/swagger/list-order-response.yml)}
+  - ${file(src/order/swagger/create-order-request.yml)}
   - ${file(src/order/swagger/create-order-response.yml)}
   - ${file(src/order/swagger/get-order-response.yml)}
   - ${file(src/health/swagger/get-health-check.yml)}

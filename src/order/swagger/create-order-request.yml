@@ -1,4 +1,4 @@
-name: CreateOrderResponse
+name: CreateOrderRequest
 contentType: "application/json"
 schema:
   type: object

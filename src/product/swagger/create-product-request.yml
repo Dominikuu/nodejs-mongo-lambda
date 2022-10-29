@@ -15,3 +15,8 @@ schema:
     price:
       type: number
       description: The price of the product.
+example:   # Sample object
+  category: toy
+  name: doll
+  price: 100
+  description: It is so cute!!
