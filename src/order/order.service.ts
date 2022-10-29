@@ -20,7 +20,7 @@ export class OrderService {
           _id: {
             $in: order.orderItem.map((item) => new Types.ObjectId(item.product_id))
           }
-        });
+        }).exec();
         const productMap = {};
         for (const product of products) {
           productMap[product._id] = product.price;
@@ -96,28 +96,37 @@ export class OrderService {
       { $unwind: '$user' },
       { $addFields: {user: '$user'}},
     ];
-
-    const orders = await OrderModel.aggregate(id? [{$match: {_id: new Types.ObjectId(id)}}, ...pipeline]: pipeline).exec();
-    // Qurey product info by orderItem.product_id
-    const orderItemIds = new Set();
-    const orderItems = orders.reduce((acc, cur) => acc.concat(cur.order_items), []);
-    for(const orderItem of orderItems) {
-      orderItemIds.add(orderItem.product_id.toString());
-    }
-    const product_list = await ProductModel.find({'_id': {$in: Array.from(orderItemIds)}}).exec();
-    const productDict = product_list.reduce((acc, {_id, price, name, category}) => {
-      acc[_id] = { price, name, category };
-      return acc;
-    }, {});
-    // Restructure result object
-    const order = orders.map(({_id, order_items, total, user, payment, timestamp, delivery}) => {
-      const _order_items: OrderItem[] = order_items.map(({product_id, quantity}: OrderItem) => {
-        const {name, description, price, category} = productDict[product_id];
-        return {quantity, name, description, price, product_id, category}
+    try {
+      const orders = await OrderModel.aggregate(id? [{$match: {_id: new Types.ObjectId(id)}}, ...pipeline]: pipeline).exec();
+      console.log('====================================================')
+      console.log(orders)
+      // Qurey product info by orderItem.product_id
+      const orderItemIds = new Set();
+      const orderItems = orders.reduce((acc, cur) => acc.concat(cur.order_items), []);
+      
+      for(const orderItem of orderItems) {
+        orderItemIds.add(orderItem.product_id.toString());
+      }
+      console.log(orderItemIds)
+      const product_list = await ProductModel.find({'_id': {$in: Array.from(orderItemIds)}}).exec();
+      console.log('====================================================')
+      console.log(product_list)
+      const productDict = product_list.reduce((acc, {_id, price, name, category}) => {
+        acc[_id] = { price, name, category };
+        return acc;
+      }, {});
+      // Restructure result object
+      const result = orders.map(({_id, order_items, total, user, payment, timestamp, delivery}) => {
+        const _order_items: OrderItem[] = order_items.map(({product_id, quantity}: OrderItem) => {
+          const {name, description, price, category} = productDict[product_id];
+          return {quantity, name, description, price, product_id, category}
+        });
+        return { order_id: _id, total,payment, timestamp, delivery, order_items: _order_items, user: {user_id: user._id, email: user.email, first_name: user.first_name, last_name: user.last_name }};
       });
-      return { order_id: _id, total,payment, timestamp, delivery, order_items: _order_items, user: {user_id: user._id, email: user.email, first_name: user.first_name, last_name: user.last_name }};
-    });
-    return order;
-    
+      return result;
+    } catch(errors) {
+      console.log(errors)
+      return []
+    }
   }
 }
