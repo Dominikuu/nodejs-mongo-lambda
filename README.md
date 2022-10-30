@@ -17,9 +17,7 @@ This sample uses the Serverless Application Framework to implement small APIs us
 ![alt text](./img/api_gateway_0.png "Title")
 ![alt text](./img/api_gateway_1.png "Title")
 
-```
-serverless config credentials --provider aws --key YOUR_ACCESS_KEY --secret YOUR_SECRET_KEY
-```
+
 - Setup .env file
 
 ![alt text](./img/mongodb_atlas_connect.png "Title")
@@ -38,6 +36,10 @@ apt-get install awscli
     ![alt text](./img/aws_iam.png "Title")
     ```
     aws configure
+    ```
+    or
+    ```
+    serverless config credentials --provider aws --key YOUR_ACCESS_KEY --secret YOUR_SECRET_KEY
     ```
 - Install Nodejs
 
@@ -200,3 +202,4 @@ https://docs.aws.amazon.com/zh_tw/cli/v1/userguide/install-windows.h
 # TODO
 - Raise up Test coverage
 - Resolve lint warning
+- Extract node_modules to layer
