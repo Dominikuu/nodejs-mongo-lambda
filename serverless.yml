@@ -95,7 +95,7 @@ functions:
           method: post
           cors: true
           documentation:
-            summary: Create new user.
+            summary: Create new product.
             tags:
               - Product
             description: Create new Product.

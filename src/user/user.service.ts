@@ -1,4 +1,4 @@
-import { NotFoundResult, ConfigurationErrorResult } from '../../shared/errors';
+import { BadRequestResult, NotFoundResult, ConfigurationErrorResult } from '../../shared/errors';
 import { User, CreateUserResult, DeleteUserResult } from './user.interfaces';
 import { connectDB } from '../../database'
 import {User as UserModel} from '../../database/model/user'
@@ -8,9 +8,13 @@ export class UserService {
   }
 
   public createUser(user: User): Promise<CreateUserResult> {
-
     return new Promise(async(resolve: (result: CreateUserResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
+        const target = await UserModel.findOne({email: user.email}).exec()
+        if (target) {
+          reject(new BadRequestResult('CREATE_DENIED', "Email duplicated"));  
+          return
+        }
         const {id} = await UserModel.create(new UserModel(user));
         const result: CreateUserResult = {
           id
@@ -26,7 +30,8 @@ export class UserService {
       try {
         const target = await UserModel.findById(id).exec()
         if (!target) {
-          reject(new NotFoundResult('DELETE_DENIED', "Target user isn't existed"));  
+          reject(new BadRequestResult('DELETE_DENIED', "Target product isn't existed"));
+          return 
         }
         await UserModel.deleteOne({id}).exec()
         const result: DeleteUserResult = {

@@ -1,6 +1,6 @@
 import { ApiCallback, ApiContext, ApiEvent, ApiHandler } from '../../shared/api.interfaces';
 import { ErrorCode } from '../../shared/error-codes';
-import { ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
+import { BadRequestResult, ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
 import { ResponseBuilder } from '../../shared/response-builder';
 import { User, CreateUserResult, DeleteUserResult } from './user.interfaces';
 import { UserService } from './user.service';
@@ -22,6 +22,10 @@ export class UserController {
         }
 
         if (error instanceof ForbiddenResult) {
+          return ResponseBuilder.forbidden(error.code, error.description, callback);
+        }
+
+        if (error instanceof BadRequestResult) {
           return ResponseBuilder.forbidden(error.code, error.description, callback);
         }
 

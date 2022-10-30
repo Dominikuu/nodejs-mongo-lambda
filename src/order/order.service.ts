@@ -62,6 +62,11 @@ export class OrderService {
   public getOrder(id: string): Promise<GetOrderResult> {
     return new Promise(async (resolve: (result: GetOrderResult) => void, reject: (reason: NotFoundResult) => void): Promise<void> => {
       try {
+        const target = await OrderModel.findById(id).exec()
+        if (!target) {
+          reject(new BadRequestResult('NOT_EXISTED', "Target order isn't existed"));
+          return 
+        }
         const orders = await this.fetchOrder(id)
         const result: GetOrderResult = {
           order: orders[0]

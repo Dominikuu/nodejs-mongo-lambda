@@ -1,6 +1,6 @@
 import { ApiCallback, ApiContext, ApiEvent, ApiHandler } from '../../shared/api.interfaces';
 import { ErrorCode } from '../../shared/error-codes';
-import { ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
+import { BadRequestResult, ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
 import { ResponseBuilder } from '../../shared/response-builder';
 import { CreateProductResult, DeleteProductResult, Product } from './product.interfaces';
 import { ProductService } from './product.service';
@@ -35,8 +35,7 @@ export class ProductController {
     }
 
     const id: string = event.pathParameters.id;
-    this._service.deleteProduct(id)
-      .then((result: DeleteProductResult) => {
+    this._service.deleteProduct(id).then((result: DeleteProductResult) => {
         return ResponseBuilder.ok<DeleteProductResult>(result, callback);  // tslint:disable-line arrow-return-shorthand
       })
       .catch ((error: ErrorResult) => {
@@ -45,6 +44,10 @@ export class ProductController {
         }
 
         if (error instanceof ForbiddenResult) {
+          return ResponseBuilder.forbidden(error.code, error.description, callback);
+        }
+
+        if (error instanceof BadRequestResult) {
           return ResponseBuilder.forbidden(error.code, error.description, callback);
         }
 

@@ -1,6 +1,6 @@
 import { ApiCallback, ApiContext, ApiEvent, ApiHandler } from '../../shared/api.interfaces';
 import { ErrorCode } from '../../shared/error-codes';
-import { ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
+import { BadRequestResult, ErrorResult, ForbiddenResult, NotFoundResult } from '../../shared/errors';
 import { ResponseBuilder } from '../../shared/response-builder';
 import { CreateOrderResult, GetOrderResult, ListOrdersResult, Order} from './order.interfaces';
 import { OrderService } from './order.service';
@@ -24,6 +24,7 @@ export class OrderController {
       return ResponseBuilder.internalServerError(error, callback);
     });
   }
+  
   public getOrder: ApiHandler = (event: ApiEvent, context: ApiContext, callback: ApiCallback): void => {
     context.callbackWaitsForEmptyEventLoop = false
     // Input validation.
@@ -40,6 +41,10 @@ export class OrderController {
         }
 
         if (error instanceof ForbiddenResult) {
+          return ResponseBuilder.forbidden(error.code, error.description, callback);
+        }
+
+        if (error instanceof BadRequestResult) {
           return ResponseBuilder.forbidden(error.code, error.description, callback);
         }
 
@@ -61,6 +66,10 @@ export class OrderController {
         }
 
         if (error instanceof ForbiddenResult) {
+          return ResponseBuilder.forbidden(error.code, error.description, callback);
+        }
+
+        if (error instanceof BadRequestResult) {
           return ResponseBuilder.forbidden(error.code, error.description, callback);
         }
 
