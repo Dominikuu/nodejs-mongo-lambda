@@ -2,10 +2,21 @@
 .build
 .serverless
 
+# Build
+
+dist/
+
 # Dependency directories
 node_modules/
 jspm_packages/
 .editorconfig
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+*.bak
 
 # Logs
 logs
@@ -17,3 +28,4 @@ yarn-error.log*
 # Test output
 .nyc_output
 coverage
+.vscode/

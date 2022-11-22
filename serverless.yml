@@ -85,7 +85,6 @@ functions:
                 responseModels:
                   "application/json": GetHealthCheckDetailed
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-
   createProduct:
     handler: src/product/product.createProduct
     description: Create new product.
@@ -139,7 +138,6 @@ functions:
               - ${file(./swagger/error-responses/forbidden.yml)}
               - ${file(./swagger/error-responses/not-found.yml)}
               - ${file(./swagger/error-responses/internal-server-error.yml)}
-
   createUser:
     handler: src/user/user.createUser
     description: Create new user.

@@ -5,6 +5,7 @@
     "lib": ["es6"],
     "moduleResolution": "node",
     "rootDir": "./",
+    "outDir": "dist",
     "sourceMap": true,
     "allowJs": true,
     "noImplicitAny": true,
@@ -25,6 +26,7 @@
   "./node_modules/@types/node/index.d.ts",
   "./node_modules/@types/whatwg-url/index.d.ts",
   "./node_modules/mongodb/mongodb.d.ts",
-  "./node_modules/mongoose/types/query.d.ts"
+  "./node_modules/mongoose/types/query.d.ts",
+  "dist"
 ]
 }
