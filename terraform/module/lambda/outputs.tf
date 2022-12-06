@@ -5,7 +5,7 @@ output "lambda_arn" {
       for obj in aws_lambda_function.lambda-function : obj.environment[0].variables.FUNCTION_NAME => obj.invoke_arn
     }
 }
-output "lambda-function-list" {
+output "lambda_function_list" {
   value       = aws_lambda_function.lambda-function
   description = "List of Lambda Functions created"
 }

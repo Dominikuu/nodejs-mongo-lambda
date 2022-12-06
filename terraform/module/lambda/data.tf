@@ -11,14 +11,6 @@ data "archive_file" "typescript-source" {
   output_path = "${local.temporary_build_prefix}/typescript-source.zip"
 }
 
-# create an archive of sources/dist
-data "archive_file" "lambda-function-source" {
-  type        = "zip"
-  depends_on  = [null_resource.lambda-layer-source-builder]
-  source_dir  = "${path.root}/../dist"
-  output_path = "${local.temporary_build_prefix}/lambda-function-source.zip"
-}
-
 # create an archive of local.temporary_build_prefix/lambda-layer-source
 data "archive_file" "lambda-layer-source" {
   type        = "zip"
@@ -26,3 +18,12 @@ data "archive_file" "lambda-layer-source" {
   source_dir  = "${local.temporary_build_prefix}/lambda-layer-source"
   output_path = "${local.temporary_build_prefix}/lambda-layer-source-${filemd5("${path.root}/../package-lock.json")}.zip"
 }
+
+# create an archive of sources/dist
+data "archive_file" "lambda-function-source" {
+  type        = "zip"
+  depends_on  = [null_resource.lambda-function-source-builder]
+  source_dir  = "${path.root}/../dist"
+  output_path = "${local.temporary_build_prefix}/lambda-function-source.zip"
+}
+

@@ -33,28 +33,6 @@ variable "service_environment" {
   description = "The 3rd level of logical grouping of the service, e.g. 'dev', 'test', 'prod', etc."
 }
 
-# variable "parameter_store_list" {
-#   type        = list(string)
-#   default     = []
-#   description = <<EOF
-#     The list of parameter store keys to be used for the service, e.g. 
-#     <pre>[<br />&nbsp;&nbsp;"datadog-api-key",<br />&nbsp;&nbsp;"datadog-app-key",<br />&nbsp;&nbsp;"sentry-dsn",<br />&nbsp;&nbsp;"sentry-environment"<br />]</pre>
-#   EOF
-# }
-
-# variable "dynamodb_table_list" {
-#   type = list(object({
-#     name      = string,
-#     key       = string,
-#     range_key = optional(string),
-#   }))
-#   default     = []
-#   description = <<EOF
-#     The list of dynamodb tables to be used for the service, e.g.
-#     <pre>[<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;"name": "booking",<br />&nbsp;&nbsp;&nbsp;&nbsp;"key": "id"<br />&nbsp;&nbsp;},<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;"name": "flight",<br />&nbsp;&nbsp;&nbsp;&nbsp;"key": "id"<br />&nbsp;&nbsp;},<br />&nbsp;&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;"name": "transaction",<br />&nbsp;&nbsp;&nbsp;&nbsp;"key": "booking_id",<br />&nbsp;&nbsp;&nbsp;&nbsp;"range_key": "flight_id"<br />&nbsp;&nbsp;}<br />]</pre>
-#   EOF
-# }
-
 variable "lambda_function_configuration" {
   type = map(object({
     lambda_memory_size  = optional(number),

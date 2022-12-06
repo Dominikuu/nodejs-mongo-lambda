@@ -71,28 +71,6 @@ module "lambda-function-name" {
   name_prefix   = "${local.resource_prefix_name}-${each.value}"
   resource_type = "lambda_function"
 }
-
-# build the dist directory using npm run build
-# this will generate the Javascript from Typescript source code using TypeScript compiler
-# this builder will only run when:
-# - there's a change in the source code directory
-# - there's a change in service domain value
-# - there's a change in service name value
-# - there's no existing dist directory
-resource "null_resource" "lambda-function-source-builder" {
-  # depends_on = [null_resource.typescript-source-model-builder]
-  provisioner "local-exec" {
-    working_dir = "${path.root}/../src/"
-    command     = "npm run build"
-  }
-  triggers = {
-    lambda-function-md5 = data.archive_file.typescript-source.output_md5
-    service_domain      = var.service_domain
-    service_name        = var.service_name
-    file_dist           = fileexists("${path.root}/../dist/index.js") ? "${path.root}/../dist/index.js" : timestamp()
-  }
-}
-
 # build the dependencies directory using npm install
 # this will generate the dependencies file from the package.json file
 # this will be used as Lambda Layer archive file
@@ -107,7 +85,8 @@ resource "null_resource" "lambda-layer-source-builder" {
     working_dir = "${path.root}/../"
     command     = <<EOT
       mkdir -p ./install/node_modules
-      npm install --prefix ./install
+      cp package.json ./install
+      npm install --prefix ./install --omit=dev
       rm -rf ${local.temporary_build_prefix}/lambda-layer-source
       mkdir -p ${local.temporary_build_prefix}/lambda-layer-source/nodejs
       cp -r ./install/node_modules ${local.temporary_build_prefix}/lambda-layer-source/nodejs
@@ -130,6 +109,27 @@ resource "aws_lambda_layer_version" "lambda-layer" {
   layer_name          = module.lambda-layer-name.name
   compatible_runtimes = [local.lambda_runtime]
 }
+# build the dist directory using npm run build
+# this will generate the Javascript from Typescript source code using TypeScript compiler
+# this builder will only run when:
+# - there's a change in the source code directory
+# - there's a change in service domain value
+# - there's a change in service name value
+# - there's no existing dist directory
+resource "null_resource" "lambda-function-source-builder" {
+  # depends_on = [null_resource.typescript-source-model-builder]
+  provisioner "local-exec" {
+    working_dir = "${path.root}/../src/"
+    command     = "npm run build"
+  }
+  triggers = {
+    lambda-function-md5 = data.archive_file.typescript-source.output_md5
+    service_domain      = var.service_domain
+    service_name        = var.service_name
+    file_dist           = fileexists("${path.root}/../dist/index.js") ? "${path.root}/../dist/index.js" : timestamp()
+  }
+}
+
 
 resource "aws_lambda_function" "lambda-function" {
 

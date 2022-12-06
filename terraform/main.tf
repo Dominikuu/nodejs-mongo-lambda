@@ -16,4 +16,5 @@ module "iam" {
   api_arn = "${module.api_gateway.api_arn}"
   iam_role_arn = "${module.iam.iam_role_arn}"
   lambda_arn = "${module.lambda.lambda_arn}"
+  lambda_function_list = "${module.lambda.lambda_function_list}"
 }

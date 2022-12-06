@@ -15,3 +15,8 @@ variable "lambda_arn" {
   description = "lambda_arn"
   type = map
 }
+
+variable "lambda_function_list" {
+  description = "List of Lambda Functions created"
+  type = map
+}
